@@ -1,76 +1,49 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Apps Script GitHub</title>
-    <style>
-        body { font-family: sans-serif; background: #f3f4f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #374151; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-        button { width: 100%; background: #059669; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #047857; }
-        #status { font-size: 13px; text-align: center; margin-top: 10px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JNC Edukasi</title>
+  <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/016/716/181/large_2x/website-3d-icon-png.png" type="image/x-icon">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      color: #666;
+      z-index: 10;
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <h3>Kirim Data ke Google Sheets</h3>
-        <form id="scriptForm" onsubmit="submitForm(event)">
-            <div class="form-group">
-                <label>Nama:</label>
-                <input type="text" id="nama" required>
-            </div>
-            <div class="form-group">
-                <label>Pesan / Catatan:</label>
-                <textarea id="pesan" rows="3" required></textarea>
-            </div>
-            <button type="submit" id="btnSubmit">Kirim Sekarang</button>
-        </form>
-        <div id="status"></div>
-    </div>
-
-    <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCulBeblOhcarbdkp9Fn_SnvslTYpdXbDXKOAduBTanJQNFqq9y_95ix-LNQ-zarXORg/exec";
-
-        function submitForm(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnSubmit');
-            const status = document.getElementById('status');
-
-            btn.disabled = true;
-            btn.innerText = "Mengirim...";
-            status.style.color = "#6b7280";
-            status.innerText = "Menghubungkan ke server...";
-
-            const payload = {
-                nama: document.getElementById('nama').value,
-                pesan: document.getElementById('pesan').value
-            };
-
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(() => {
-                status.style.color = "#059669";
-                status.innerText = "Data berhasil dikirim!";
-                document.getElementById('scriptForm').reset();
-            })
-            .catch(err => {
-                status.style.color = "#dc2626";
-                status.innerText = "Gagal mengirim data.";
-                console.error(err);
-            })
-            .finally(() => {
-                btn.disabled = false;
-                btn.innerText = "Kirim Sekarang";
-            });
-        }
-    </script>
+  <div class="iframe-container">
+    <div class="loader" id="loader">Loading app...</div>
+    <iframe 
+      src="https://script.google.com/macros/s/AKfycbzCulBeblOhcarbdkp9Fn_SnvslTYpdXbDXKOAduBTanJQNFqq9y_95ix-LNQ-zarXORg/exec" 
+      title="JNCfy Web App"
+      onload="document.getElementById('loader').style.display='none';"
+      allowfullscreen>
+    </iframe>
+  </div>
 </body>
 </html>
+
